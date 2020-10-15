@@ -4,6 +4,11 @@
     <div class="card-header">
       <h5><?= $title ?></h5>
       <span class="text-muted">Welcome to Dashboard Captain</span>
+      <div class="card-header-right">
+        <a href="<?= base_url('dashboard/tambahrole') ?>" class="btn btn-primary" style="margin-right: 10px;">
+          Tambah Role Karyawan
+        </a>
+      </div>
       <hr>
       <table class="table">
         <thead>

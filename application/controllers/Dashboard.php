@@ -131,4 +131,32 @@ class Dashboard extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akses telah berubah!</div>');
     }
+
+
+    public function tambahrole()
+    {
+        $this->form_validation->set_rules('role', 'Role', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $data['title_header'] = "Dashboard";
+            $data['title'] = "Manajemen Sistem";
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+            $data['admin'] = $this->db->get('user')->result_array();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('dashboard/tambahrole', $data);
+            $this->load->view('template/footer');
+        } else {
+            $input = $this->input->post(NULL, TRUE);
+
+            $data = [
+                'role_title' => $input['role']
+            ];
+
+            $this->db->insert('user_role', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Role Telah dibuat!</div>');
+            redirect('dashboard/manajemensistem');
+        }
+    }
 }
